@@ -18,7 +18,7 @@ namespace GildedRose.Console
             };
 
             var shop = new GildedRoseShop();
-            var result = shop.UpdateDailyQualities(_currentItemsInShop);
+            var updatedItemsInShop = shop.UpdateDailyQualities(_currentItemsInShop);
             System.Console.ReadKey();
         }
     }
