@@ -3,10 +3,10 @@ using Xunit;
 
 namespace GildedRose.Tests
 {
-    public class aGildedRoseShopTests_Dexterity : TestBase
+    public class aDexterity : TestBase
     {
         [Fact]
-        public void aShouldReduceSellInByOne()
+        public void aReduceSellInByOne()
         {
             var normalItem = GetNormalItemDexterityVest();
             int startingSellIn = normalItem.SellIn;
@@ -17,7 +17,7 @@ namespace GildedRose.Tests
         }
 
         [Fact]
-        public void bShouldReduceItemQualityByOne()
+        public void bReduceItemQualityByOne()
         {
             var normalItem = GetNormalItemDexterityVest();
             int startingQuality = normalItem.Quality;
@@ -28,7 +28,7 @@ namespace GildedRose.Tests
         }
 
         [Fact]
-        public void cShouldReduceItemQualityBy2OnceSellInLessThan1()
+        public void cReduceItemQualityByTwoOnceSellInLessThan1()
         {
             var normalItem = GetNormalItemDexterityVest(sellIn:0);
             int startingQuality = normalItem.Quality;
@@ -39,7 +39,7 @@ namespace GildedRose.Tests
         }
 
         [Fact]
-        public void dQualityShouldNeverBeNegative()
+        public void dNotReduceItemQualityBelowZero()
         {
             var normalItem = GetNormalItemDexterityVest(quality:0);
 
@@ -53,7 +53,7 @@ namespace GildedRose.Tests
         }
     }
 
-    public class bGildedRoseShopTests_AgedBrie : TestBase
+    public class bAgedBrie : TestBase
     {
         [Fact]
         public void aIncreaseQualityOfAgedBrie()
@@ -77,16 +77,27 @@ namespace GildedRose.Tests
             Assert.Equal(SystemMaxQuality, result.Quality);
         }
 
+        [Fact]
+        public void cIncreaseQualityOfAgedBrieByTwoAfterSellIn()
+        {
+            var agedBrie = GetAgedBrie(sellIn:0);
+            int startingQuality = agedBrie.Quality;
+
+            var result = shop.UpdateItemQuality(agedBrie);
+
+            Assert.Equal(startingQuality + 2, result.Quality);
+        }
+
         private static Item GetAgedBrie(int sellIn = 10, int quality = 20)
         {
             return new Item{Name = "Aged Brie",SellIn = sellIn,Quality = quality};
         }
     }
 
-    public class cGildedRoseShopTests_Sulfuras : TestBase
+    public class cSulfuras : TestBase
     {
         [Fact]
-        public void NotChangeTheQualityOfSulfuras()
+        public void aNotChangeTheQualityOfSulfuras()
         {
             var sulfuras = GetSulfuras();
             int startingQuality = sulfuras.Quality;
@@ -96,13 +107,24 @@ namespace GildedRose.Tests
             Assert.Equal(startingQuality, result.Quality);
         }
 
+        [Fact]
+        public void bNotChangeTheSellInOfSulfuras()
+        {
+            var sulfuras = GetSulfuras();
+            int startingSellIn = sulfuras.SellIn;
+
+            var result = shop.UpdateItemQuality(sulfuras);
+
+            Assert.Equal(startingSellIn, result.SellIn);
+        }
+
         private static Item GetSulfuras()
         {
             return new Item{Name = "Sulfuras, Hand of Ragnaros",SellIn = 0,Quality = 80};
         }
     }
 
-    public class dGildedRoseShopTests_BackStagePasses : TestBase
+    public class dBackStagePasses : TestBase
     {
         [Fact]
         public void aIncreaseTheQualityOfBackstagePassesByOneWith11DaysLeft()
@@ -149,7 +171,7 @@ namespace GildedRose.Tests
         }
 
         [Fact]
-        public void eIncreaseTheQualityOfBackstagePassesToZeroWith0DaysLeft()
+        public void eSetQualityOfBackstagePassesToZeroWith0DaysLeft()
         {
             var backstagePass = GetBackstagePasses(sellIn: 0);
 
@@ -163,6 +185,47 @@ namespace GildedRose.Tests
                 Name = "Backstage passes to a TAFKAL80ETC concert",
                 SellIn = sellIn,Quality = quality
             };
+        }
+    }
+
+    public class eConjuredItems : TestBase
+    {
+        [Fact]
+        public void aDecreaseTheQualityBy2()
+        {
+            var conjuredItem = GetConjuredItem();
+            int startingQuality = conjuredItem.Quality;
+
+            var result = shop.UpdateItemQuality(conjuredItem);
+
+            Assert.Equal(startingQuality - 2, result.Quality);
+        }
+
+        [Fact]
+        public void bReduceSellInBy1()
+        {
+            var conjuredItem = GetConjuredItem();
+            int startingSellIn = conjuredItem.SellIn;
+
+            var result = shop.UpdateItemQuality(conjuredItem);
+
+            Assert.Equal(startingSellIn - 1, result.SellIn);
+        }
+
+        [Fact]
+        public void bNotReduceQualityBelowZero()
+        {
+            var conjuredItem = GetConjuredItem(quality:0);
+            int startingQuality = conjuredItem.Quality;
+
+            var result = shop.UpdateItemQuality(conjuredItem);
+
+            Assert.Equal(0, result.Quality);
+        }
+
+        private static Item GetConjuredItem(int sellIn = 10, int quality = 20)
+        {
+            return new Item{Name = "Conjured Item",SellIn = sellIn,Quality = quality};
         }
     }
 }
