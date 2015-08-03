@@ -18,7 +18,18 @@ namespace GildedRose.Console
             };
 
             var shop = new GildedRoseShop();
-            var updatedItemsInShop = shop.UpdateDailyQualities(_currentItemsInShop);
+            for (var i = 0; i < 31; i++)
+            {
+                System.Console.WriteLine("-------- day " + i + " --------");
+                System.Console.WriteLine("name, sellIn, quality");
+                for (var j = 0; j < _currentItemsInShop.Count; j++)
+                {
+                    System.Console.WriteLine(_currentItemsInShop[j].Name + ", " + _currentItemsInShop[j].SellIn + ", " + _currentItemsInShop[j].Quality);
+                }
+                System.Console.WriteLine("");
+                _currentItemsInShop = shop.UpdateDailyQualities(_currentItemsInShop);
+            }
+
             System.Console.ReadKey();
         }
     }

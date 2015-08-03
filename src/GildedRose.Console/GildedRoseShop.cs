@@ -29,7 +29,7 @@ namespace GildedRose.Console
             if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
                 item = UpdateItemAsBackStage(item);
 
-            if (item.Name == "Conjured Item")
+            if (item.Name == "Conjured Mana Cake")
                 item = UpdateItemAsConjured(item);
 
             return item;
@@ -37,8 +37,6 @@ namespace GildedRose.Console
 
         private Item UpdateItemAsDexterity(Item item)
         {
-            item.SellIn -= 1;
-
             if (item.SellIn > 0)
                 item.Quality -= 1;
             else
@@ -47,11 +45,14 @@ namespace GildedRose.Console
             if (item.Quality < 0)
                 item.Quality = 0;
 
+            item.SellIn -= 1;
             return item;
         }
 
         private Item UpdateItemAsAgedBrie(Item item)
         {
+            item.SellIn -= 1;
+
             if (item.SellIn > 0)
                 item.Quality += 1;
             else
@@ -69,6 +70,7 @@ namespace GildedRose.Console
 
         private Item UpdateItemAsBackStage(Item item)
         {
+            
             if (item.SellIn > 10)
                 item.Quality += 1;
 
@@ -81,17 +83,18 @@ namespace GildedRose.Console
             if (item.SellIn <= 0)
                 item.Quality = 0;
 
+            item.SellIn -= 1;
             return item;
         }
 
         private Item UpdateItemAsConjured(Item item)
         {
-            item.SellIn -= 1;
             item.Quality -= 2;
 
             if (item.Quality < 0)
                 item.Quality = 0;
 
+            item.SellIn -= 1;
             return item;
         }
     }

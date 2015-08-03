@@ -127,6 +127,17 @@ namespace GildedRose.Tests
     public class dBackStagePasses : TestBase
     {
         [Fact]
+        public void aaReduceSellInByOne()
+        {
+            var backstagePass = GetBackstagePasses();
+            int startingSellIn = backstagePass.SellIn;
+
+            var result = shop.UpdateItemQuality(backstagePass);
+
+            Assert.Equal(startingSellIn - 1, result.SellIn);
+        }
+
+        [Fact]
         public void aIncreaseTheQualityOfBackstagePassesByOneWith11DaysLeft()
         {
             var backstagePass = GetBackstagePasses(sellIn: 11);
@@ -225,7 +236,7 @@ namespace GildedRose.Tests
 
         private static Item GetConjuredItem(int sellIn = 10, int quality = 20)
         {
-            return new Item{Name = "Conjured Item",SellIn = sellIn,Quality = quality};
+            return new Item { Name = "Conjured Mana Cake", SellIn = sellIn, Quality = quality };
         }
     }
 }
