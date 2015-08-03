@@ -39,10 +39,10 @@ namespace GildedRose.Console
         {
             item.SellIn -= 1;
 
-            if (item.SellIn < 1)
-                item.Quality -= 2;
-            else
+            if (item.SellIn > 0)
                 item.Quality -= 1;
+            else
+                item.Quality -= 2;
 
             if (item.Quality < 0)
                 item.Quality = 0;
@@ -72,13 +72,13 @@ namespace GildedRose.Console
             if (item.SellIn > 10)
                 item.Quality += 1;
 
-            if (item.SellIn <= 10 && item.SellIn > 5)
+            if (item.SellIn > 5 && item.SellIn <= 10)
                 item.Quality += 2;
 
-            if (item.SellIn <= 5 && item.SellIn > 0)
+            if (item.SellIn > 0 && item.SellIn <= 5)
                 item.Quality += 3;
 
-            if (item.SellIn == 0)
+            if (item.SellIn <= 0)
                 item.Quality = 0;
 
             return item;
