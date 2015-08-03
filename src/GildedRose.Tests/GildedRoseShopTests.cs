@@ -6,7 +6,7 @@ namespace GildedRose.Tests
     public class aGildedRoseShopTests_Dexterity : TestBase
     {
         [Fact]
-        public void ShouldReduceSellInByOne()
+        public void aShouldReduceSellInByOne()
         {
             var normalItem = GetNormalItemDexterityVest();
             int startingSellIn = normalItem.SellIn;
@@ -17,7 +17,7 @@ namespace GildedRose.Tests
         }
 
         [Fact]
-        public void ShouldReduceItemQualityByOne()
+        public void bShouldReduceItemQualityByOne()
         {
             var normalItem = GetNormalItemDexterityVest();
             int startingQuality = normalItem.Quality;
@@ -28,7 +28,7 @@ namespace GildedRose.Tests
         }
 
         [Fact]
-        public void ShouldReduceItemQualityBy2OnceSellInLessThan1()
+        public void cShouldReduceItemQualityBy2OnceSellInLessThan1()
         {
             var normalItem = GetNormalItemDexterityVest(sellIn:0);
             int startingQuality = normalItem.Quality;
@@ -39,7 +39,7 @@ namespace GildedRose.Tests
         }
 
         [Fact]
-        public void QualityShouldNeverBeNegative()
+        public void dQualityShouldNeverBeNegative()
         {
             var normalItem = GetNormalItemDexterityVest(quality:0);
 
@@ -56,7 +56,7 @@ namespace GildedRose.Tests
     public class bGildedRoseShopTests_AgedBrie : TestBase
     {
         [Fact]
-        public void IncreaseQualityOfAgedBrie()
+        public void aIncreaseQualityOfAgedBrie()
         {
             var agedBrie = GetAgedBrie();
             int startingQuality = agedBrie.Quality;
@@ -67,7 +67,7 @@ namespace GildedRose.Tests
         }
 
         [Fact]
-        public void NotIncreaseQualityOfAgedBriePast50()
+        public void bNotIncreaseQualityOfAgedBriePast50()
         {
             var agedBrie = GetAgedBrie(quality: SystemMaxQuality);
             int startingQuality = agedBrie.Quality;
@@ -98,15 +98,14 @@ namespace GildedRose.Tests
 
         private static Item GetSulfuras()
         {
-            return new Item{Name = "Sulfuras, Hand of Ragnaros",SellIn = 0,Quality = 80
-            };
+            return new Item{Name = "Sulfuras, Hand of Ragnaros",SellIn = 0,Quality = 80};
         }
     }
 
     public class dGildedRoseShopTests_BackStagePasses : TestBase
     {
         [Fact]
-        public void IncreaseTheQualityOfBackstagePassesByOneWith11DaysLeft()
+        public void aIncreaseTheQualityOfBackstagePassesByOneWith11DaysLeft()
         {
             var backstagePass = GetBackstagePasses(sellIn: 11);
             int startingQuality = backstagePass.Quality;
@@ -117,7 +116,7 @@ namespace GildedRose.Tests
         }
 
         [Fact]
-        public void IncreaseTheQualityOfBackstagePassesByTwoWith10DaysLeft()
+        public void bIncreaseTheQualityOfBackstagePassesByTwoWith10DaysLeft()
         {
             var backstagePass = GetBackstagePasses(sellIn: 10);
             int startingQuality = backstagePass.Quality;
@@ -128,7 +127,7 @@ namespace GildedRose.Tests
         }
 
         [Fact]
-        public void IncreaseTheQualityOfBackstagePassesByTwoWith6DaysLeft()
+        public void cIncreaseTheQualityOfBackstagePassesByTwoWith6DaysLeft()
         {
             var backstagePass = GetBackstagePasses(sellIn: 6);
             int startingQuality = backstagePass.Quality;
@@ -139,7 +138,7 @@ namespace GildedRose.Tests
         }
 
         [Fact]
-        public void IncreaseTheQualityOfBackstagePassesByThreeWith5DaysLeft()
+        public void dIncreaseTheQualityOfBackstagePassesByThreeWith5DaysLeft()
         {
             var backstagePass = GetBackstagePasses(sellIn: 5);
             int startingQuality = backstagePass.Quality;
@@ -150,7 +149,7 @@ namespace GildedRose.Tests
         }
 
         [Fact]
-        public void IncreaseTheQualityOfBackstagePassesToZeroWith0DaysLeft()
+        public void eIncreaseTheQualityOfBackstagePassesToZeroWith0DaysLeft()
         {
             var backstagePass = GetBackstagePasses(sellIn: 0);
 
